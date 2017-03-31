@@ -9,11 +9,10 @@ import (
 	"time"
 
 	_ "github.com/go-sql-driver/mysql"
-	_ "github.com/mattn/go-oci8"
+	_ "gopkg.in/rana/ora.v4"
 )
 
 
-// WARNING: '32' sokole (32>31, w=31/c=33) | mysql_query_time=0.0609s
 
 //global variables
 var print_panic bool
@@ -100,7 +99,7 @@ func main() {
 		checkErr(err, "cant connect to: "+dbt)
 	case "oracle":
 		//database connection
-		db, err = sql.Open("oci8", fmt.Sprintf("%s/%s@%s:%d/%s", UserFlag, PasswordFlag, HostFlag, PortFlag, OracleServiceName))
+		db, err = sql.Open("ora", fmt.Sprintf("%s/%s@%s:%d/%s", UserFlag, PasswordFlag, HostFlag, PortFlag, OracleServiceName))
 		checkErr(err, "cant connect to oracle")
 
 		if err = db.Ping(); err != nil {
